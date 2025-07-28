@@ -15,7 +15,7 @@ export const UploadChatPanel = (props) => {
     const inputRef = useRef();
     const updateRef = useRef();
 
-    const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+    const { messages, input, handleInputChange, handleSubmit, isLoading, setMessages } = useChat({
         api: `/api/chat`,
         body: { id },
         initialMessages: [
@@ -32,6 +32,18 @@ export const UploadChatPanel = (props) => {
             messageEnd.current.scrollIntoView({ behavior: "smooth" });
         }
     }, [messages]);
+
+    useEffect(() => {
+        if(pdfUrl === '') {
+            setMessages([
+                {
+                    id: 'initial',
+                    role: 'assistant',
+                    content: `Hello! Ask me anything from the PDF that you uploaded jusst now.`,
+                },
+            ]);
+        }
+    }, [pdfUrl])
 
     return (
         <div className={`flex ${pdfUrl === '' ? 'items-center' : 'items-start'} justify-center h-screen`}>
