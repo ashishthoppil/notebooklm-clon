@@ -28,8 +28,15 @@ export default function Home() {
 
     const droppedFile = event.dataTransfer ? event.dataTransfer.files : event.target.files
     if (droppedFile.length > 1) {
-      toast.error('Please upload a single file.')
+      alert('Please upload a single file.')
     } else {
+      const fileName = droppedFile[0].name;
+      const extension = fileName.split('.').pop().toLowerCase();
+
+      if (extension !== 'pdf') {
+        alert('Please upload a PDF file.');
+        return;
+      }
       const formData = new FormData()
       formData.append('file', droppedFile[0])
       setIsScanning(true);
@@ -40,7 +47,7 @@ export default function Home() {
 
       const data = await response.json();
       if (data.success) {
-        const fileBlobUrl = URL.createObjectURL(droppedFile);
+        const fileBlobUrl = URL.createObjectURL(droppedFile[0]);
         setPdfUrl(fileBlobUrl);
         setIsScanning(false)
         setId(data.id)
