@@ -1,10 +1,9 @@
 "use client"
 
-import { lazy, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Header } from "./components/Header";
 import { UploadChatPanel } from "./components/UploadChatPanel";
-// import { PDFViewer } from "./components/PDFViewer";
 import dynamic from 'next/dynamic';
 
 const PDFViewer = dynamic(() => import('./components/PDFViewer').then(mod => mod.default), {
@@ -41,8 +40,9 @@ export default function Home() {
 
       const data = await response.json();
       if (data.success) {
+        const fileBlobUrl = URL.createObjectURL(droppedFile);
+        setPdfUrl(fileBlobUrl);
         setIsScanning(false)
-        setPdfUrl(data.fileUrl + '#toolbar=0&navpanes=0&scrollbar=0');
         setId(data.id)
       }
     }

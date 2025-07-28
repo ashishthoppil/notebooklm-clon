@@ -27,14 +27,6 @@ export async function POST(req) {
 
     // Parse PDF text
     const parsedData = await PdfParse(buffer);
-
-    const pages = parsedData.text.split('\f');
-
-    // Save file temporarily
-    const filename = `upload-${Date.now()}.pdf`;
-    const tmpPath = path.join('/tmp', filename);
-    await writeFile(tmpPath, buffer);
-
     const chunks = chunkText(parsedData.text, 10000);
     
     if (chunks.length > 0) {
@@ -60,7 +52,6 @@ export async function POST(req) {
                 return NextResponse.json({
                     id: result.insertedId.toString(),
                     success: true,
-                    fileUrl: `/tmp/${filename}`,
                 });
             }
         }
@@ -68,7 +59,6 @@ export async function POST(req) {
 
     return NextResponse.json({
       success: false,
-      fileUrl: `/tmp/${filename}`,
     });
 
   } catch (err) {
