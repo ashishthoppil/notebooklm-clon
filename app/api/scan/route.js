@@ -60,7 +60,7 @@ export async function POST(req) {
                 return NextResponse.json({
                     id: result.insertedId.toString(),
                     success: true,
-                    fileUrl: `/${filename}`,
+                    fileUrl: `/tmp/${filename}`,
                 });
             }
         }
@@ -68,7 +68,7 @@ export async function POST(req) {
 
     return NextResponse.json({
       success: false,
-      fileUrl: `/${filename}`,
+      fileUrl: `/tmp/${filename}`,
     });
 
   } catch (err) {
