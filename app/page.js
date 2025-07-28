@@ -1,11 +1,15 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 
 import { Header } from "./components/Header";
 import { UploadChatPanel } from "./components/UploadChatPanel";
-import { PDFViewer } from "./components/PDFViewer";
+// import { PDFViewer } from "./components/PDFViewer";
+import dynamic from 'next/dynamic';
 
+const PDFViewer = dynamic(() => import('./components/PDFViewer').then(mod => mod.default), {
+  ssr: false,
+});
 
 export default function Home() {
   const [isScanning, setIsScanning] = useState(false);
