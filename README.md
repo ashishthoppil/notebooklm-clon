@@ -4,7 +4,7 @@ It is a web-based application that allows users to upload PDF documents, view th
 
 ## 🚀 Live Demo
 
-🔗 [Access the app here](https://your-app-url.com)  
+🔗 [Access the app here](https://notebooklm-clone-sigma.vercel.app/)  
 (Hosted via Vercel)
 
 ---
