@@ -32,8 +32,8 @@ export async function POST(req) {
 
     // Save file temporarily
     const filename = `upload-${Date.now()}.pdf`;
-    const filePath = path.join(process.cwd(), 'public', filename);
-    await writeFile(filePath, buffer);
+    const tmpPath = path.join('/tmp', filename);
+    await writeFile(tmpPath, buffer);
 
     const chunks = chunkText(parsedData.text, 10000);
     
